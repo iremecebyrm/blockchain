@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-9" />
+    <title>MyGov</title>
+    <link rel="stylesheet" href="index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.6/dist/web3.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Top Screen -->
+    <header class="Home Page">
+      <h1 class="home-headline">MyGov Token</h1>
+      <p class="home-subline">Submit Surveys and Project Proposals</p>
+    </header>
+
+    <!-- Wallet Connection -->
+    <div class="box">
+      <div class="box-box">
+        <h2 id="connection-of-wallet-h2">Wallet Connection</h2>
+        <p id="connection-of-wallet-p">
+          Hello! <br />
+          Connect Your Wallet To Start
+        </p>
+        <button id="connectButton">
+          <span id="connectButton"> Connect Your Wallet </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Faucet and Donations -->
+    <div class="box">
+      <div class="box-box">
+        <h2 id="donations-faucet-h2">Faucet</h2>
+        <p id="donations-faucet-p">Get Your First Token Here!</p>
+        <button id="donationButton">
+          <span id="donationButton"> Get 1 Token From Faucet</span>
+        </button>
+      </div>
+
+      <div class="box-box">
+        <h2 id="donations-mygov-h2">Donate MyGov</h2>
+        <input
+          type="number"
+          id="donations-mygov-input"
+          placeholder="Enter amount"
+        />
+        <button id="donations-mygov-button" onclick="donateMyGovToken()">
+          <span id="dmgb-p">Donate MyGov Tokens</span>
+        </button>
+      </div>
+
+      <div class="box-box">
+        <h2 id="donations-usd-h2">Donate USD Stablecoin</h2>
+        <input
+          type="number"
+          id="donations-usd-input"
+          placeholder="Enter amount"
+        />
+        <button id="donations-usd-button" onclick="donateUSD()">
+          <span id="dusdb-p">Donate USD Stablecoin</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Surveys -->
+    <div class="box">
+      <div class="box-box">
+        <h2>Submit Survey</h2>
+        <label for="ipfHash-survey"> Link:</label>
+        <input type="url" id="ipfHash-survey" placeholder="Enter link" />
+        <label for="datetime-local"> Deadline:</label>
+        <input
+          type="datetime-local"
+          id="deadline-survey"
+          placeholder="Enter deadline"
+        />
+        <label for="numchoice"> Number Of Choices:</label>
+        <input
+          type="number"
+          id="numchoice"
+          placeholder="Enter number of choices"
+        />
+        <label for="atmostchoice"> At Most Choice:</label>
+        <input
+          type="number"
+          id="atmostchoice"
+          placeholder="Enter the number of at most choice"
+        />
+        <button id="submit-survey button" onclick="submitSurvey()">
+          <span id="subsb-p">Submit Survey</span>
+        </button>
+        <p id="submit-survey-return-id"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Get Survey Info</h2>
+        <label for="surveyid-getinfo"> Survey Id:</label>
+        <input
+          type="number"
+          id="surveyid-getinfo"
+          placeholder="Enter Survey Id"
+        />
+        <button id="get-survey-info-button" onclick="getSurveyInfo()">
+          <span id="gsib-p">Get Survey Info</span>
+        </button>
+        <p id="get-survey-info-return-ipfHash"></p>
+        <p id="get-survey-info-return-datetime"></p>
+        <p id="get-survey-info-return-numchoice"></p>
+        <p id="get-survey-info-return-atmostchoice"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Take Survey</h2>
+        <label for="surveyid-takesurvey"> Survey Id:</label>
+        <input
+          type="number"
+          id="surveyid-takesurvey"
+          placeholder="Enter Survey Id"
+        />
+        <label for="choices-takesurvey"> Choices:</label>
+        <input
+          type="text"
+          id="choices-takesurvey"
+          placeholder="Enter Your Choices"
+        />
+        <button id="take-survey-button" onclick="takeSurvey()">
+          <span id="tsb-p">Submit Choices</span>
+        </button>
+      </div>
+
+      <div class="box-box">
+        <h2>Get Survey Results</h2>
+        <label for="surveyid-getsurveyresults"> Survey Id:</label>
+        <input
+          type="number"
+          id="surveyid-getsurveyresults"
+          placeholder="Enter Survey Id"
+        />
+        <button id="get-survey-results-button" onclick="getSurveyResults()">
+          <span id="gsrb-p">Get Survey Results</span>
+        </button>
+        <p id="get-survey-result-return-Taken-Count"></p>
+        <p id="get-survey-result-return-results"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Get Survey Owner</h2>
+        <label for="surveyid-getsurveyowner"> Survey Id:</label>
+        <input
+          type="number"
+          id="surveyid-getsurveyowner"
+          placeholder="Enter Survey Id"
+        />
+        <button id="get-survey-owner-button" onclick="getSurveyOwner()">
+          <span id="gsob-p">Get The Owner Of The Survey</span>
+        </button>
+        <p id="get-survey-owner-return-owner"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Get Number Of Survey</h2>
+        <label for="surveyid-getnoofsurveys"> Survey Id:</label>
+        <input
+          type="number"
+          id="surveyid-getnoofsurveys"
+          placeholder="Enter Survey Id"
+        />
+        <button id="get-noof-survey-button" onclick="getNoOfSurveys()">
+          <span id="gnosb-p">Get The Number Of Surveys</span>
+        </button>
+        <p id="get-survey-return-numberofsurveys"></p>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="box">
+      <div class="box-box">
+        <h2>Submit Project Proposal</h2>
+        <label for="ipfHash-project">Link:</label>
+        <input type="url" id="ipfHash-project" placeholder="Enter link" />
+        <label for="deadline-project">Deadline:</label>
+        <input
+          type="datetime-local"
+          id="deadline-project"
+          placeholder="Enter The Deadline"
+        />
+        <label for="paymentamounts-project">Payment Amounts:</label>
+        <input
+          type="text"
+          id="paymentamounts-project"
+          placeholder="Enter payment amounts"
+        />
+        <label for="paymentdeadlines-project">Payment Deadlines:</label>
+        <input
+          type="datetime-local"
+          id="paymentdeadlines-project"
+          placeholder="Enter payment deadlines"
+        />
+        <button id="submit-project-button" onclick="submitProjectProposal()">
+          <span id="spb-p">Submit Project Proposal</span>
+        </button>
+        <p id="submit-project-return-id"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Delegate Vote</h2>
+        <label for="projectid-delegatevote">Project Id:</label>
+        <input
+          type="text"
+          id="projectid-delegatevote"
+          placeholder="Enter Project Id"
+        />
+        <label for="address-delegatevote">Address of the Delegetee:</label>
+        <input
+          type="text"
+          id="address-delegatevote"
+          placeholder="Enter the address of the delegatee"
+        />
+        <button id="delegete-vote-button" onclick="delegateVoteTo()">
+          <span id="dyvb-p">Delegate Your Vote</span>
+        </button>
+      </div>
+
+      <div class="box-box">
+        <h2>Vote For Project Proposal</h2>
+        <label for="projectid-voteforprojectproposal">Project Id:</label>
+        <input
+          type="number"
+          id="projectid-voteforprojectproposal"
+          placeholder="Enter Project Id"
+        />
+        <button
+          id="vote-for-project-opening-yes-or-no-button"
+          onclick="showyesnobuttons()"
+        >
+          <span id="vfpoyonb-p">Click To Vote</span>
+        </button>
+        <p id="vote-project-return-votingimpact"></p>
+        <!--Show Their Voting Impact Then Make Them Vote-->
+        <button
+          id="vote-for-project-yes-button"
+          onclick="voteForProjectProposalyes()"
+          style="visibility: hidden"
+        >
+          Vote Yes
+        </button>
+        <button
+          id="vote-for-project-no-button"
+          onclick="voteForProjectProposalno()"
+          style="visibility: hidden"
+        >
+          Vote No
+        </button>
+      </div>
+
+      <div class="box-box">
+        <h2>Is Project Proposal Funded</h2>
+        <label for="projectid-funded">Project Id:</label>
+        <input
+          type="number"
+          id="projectid-funded"
+          placeholder="Enter Project Id"
+        />
+        <button id="is-project-funded-button" onclick="getIsProjectFunded()">
+          <span id="ipfb-p">Get Info About Fund Status</span>
+        </button>
+        <p id="isfunded-project-return-funded"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Reserve Project Grand</h2>
+        <label for="projectid-reserve">Project Id:</label>
+        <input
+          type="number"
+          id="projectid-reserve"
+          placeholder="Enter Project Id"
+        />
+        <button id="reserve-project-button" onclick="reserveProjectGrant()">
+          <span id="rpgb-p">Reserve Project Grands</span>
+        </button>
+      </div>
+
+      <div class="box-box">
+        <h2>Vote For Project Payment</h2>
+        <label for="projectid-voteforpayment">Project Id:</label>
+        <input
+          type="number"
+          id="projectid-voteforpayment"
+          placeholder="Enter Project Id"
+        />
+        <button
+          id="vote-for-project-payment-opening-yes-or-no-button"
+          onclick="showyesnobuttons_()"
+        >
+          <span id="vfppoyonb-p">Click To Vote</span>
+        </button>
+        <p id="vote-project-payment-return-votingimpact"></p>
+        <!--Show Their Voting Impact Then Make Them Vote-->
+        <button
+          id="vote-for-project-payment-yes-button"
+          onclick="voteForProjectPaymentsyes_()"
+          style="visibility: hidden"
+        >
+          Vote Yes
+        </button>
+        <button
+          id="vote-for-project-payment-no-button"
+          onclick="voteForProjectPaymentsno_()"
+          style="visibility: hidden"
+        >
+          Vote No
+        </button>
+      </div>
+
+      <div class="box-box">
+        <h2>Get Next Time Payment</h2>
+        <label for="projectid-nexttimepayment">Project Id:</label>
+        <input
+          type="number"
+          id="projectid-nexttimepayment"
+          placeholder="Enter Project Id"
+        />
+        <button
+          id="get-nexttime-payment-button"
+          onclick="getProjectNextPayment()"
+        >
+          <span id="gntpb-p">Get Next Time Payment</span>
+        </button>
+        <p id="get-project-return-nextpay"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Witdraw Project Payment</h2>
+        <label for="projectid-witdraw">Project Id:</label>
+        <input
+          type="number"
+          id="projectid-witdraw"
+          placeholder="Enter Project Id"
+        />
+        <button
+          id="witdraw-project-payment-button"
+          onclick="withdrawProjectPayments()"
+        >
+          <span id="wppb-p">Witdraw Project Payment</span>
+        </button>
+      </div>
+
+      <div class="box-box">
+        <h2>Get Project Info</h2>
+        <label for="projectid-projectinfo">Project Id:</label>
+        <input
+          type="number"
+          id="projectid-projectinfo"
+          placeholder="Enter id"
+        />
+        <button id="get-project-info-button" onclick="getProjectInfo()">
+          <span id="gpib-p">Get Project Info</span>
+        </button>
+        <p id="get-project-return-ipfhash"></p>
+        <p id="get-project-return-datetime"></p>
+        <p id="get-project-return-paymentamount"></p>
+        <p id="get-project-return-paymentdeadline"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Get Project Owner</h2>
+        <label for="projectid-getprojectowner">Project Id:</label>
+        <input
+          type="number"
+          id="projectid-getprojectowner"
+          placeholder="Enter Survey Id"
+        />
+        <button id="get-project-owner-button" onclick="getProjectOwner()">
+          <span id="gpob-p">Get The Owner Of The Project </span>
+        </button>
+        <p id="get-project-return-owner"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Get No Of USD Recieved</h2>
+        <label for="projectid-getnoofusd">Project Id:</label>
+        <input
+          type="number"
+          id="projectid-getnoofusd"
+          placeholder="Enter Survey Id"
+        />
+        <button
+          id="get-noof-usd-recived-byproject-button"
+          onclick="getUSDReceivedByProject()"
+        >
+          <span id="gnousdrpb-p"
+            >Get The Number Of USD Recived by The Project
+          </span>
+        </button>
+        <p id="get-project-return-usdrecived"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Get No Of Funded Projects</h2>
+        <button
+          id="get-noof-funded-project-button"
+          onclick="getNoOfFundedProjects()"
+        >
+          <span id="gnofpb-p">Get The Number Of Funded Projects</span>
+        </button>
+        <p id="get-project-return-nooffunded"></p>
+      </div>
+
+      <div class="box-box">
+        <h2>Get No of Project Proposals</h2>
+        <button
+          id="get-noof-project-proposal-button"
+          onclick="getNoOfProjectProposals()"
+        >
+          <span id="gnoppb-p">Get The Number Of Projects</span>
+        </button>
+        <p id="get-project-return-noofproject"></p>
+      </div>
+    </div>
+
+    <!-- Bottom Screen -->
+    <footer>
+      <p class="footer-subline">
+        Melisa Açıkgöz - İrem Ece Bayram - Hatice Nurefşan Köksal
+      </p>
+    </footer>
+  </body>
+  <script src="index.js" type="module"></script>
+</html>

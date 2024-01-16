@@ -1,0 +1,23 @@
+{
+  "43113": {
+    "usdStablCoin": {
+      "address": "0x75Eb0a0A34ef0Db26e636b01DC150495EE0e42ea"
+    },
+
+    "myGovToken": {
+      "address": "0x75Eb0a0A34ef0Db26e636b01DC150495EE0e42ea"
+    },
+
+    "membership": {
+      "address": "0x75Eb0a0A34ef0Db26e636b01DC150495EE0e42ea"
+    },
+
+    "survey": {
+      "address": "0x75Eb0a0A34ef0Db26e636b01DC150495EE0e42ea"
+    },
+
+    "project": {
+      "address": "0x75Eb0a0A34ef0Db26e636b01DC150495EE0e42ea"
+    }
+  }
+}
